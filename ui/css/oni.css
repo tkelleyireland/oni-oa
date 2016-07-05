@@ -90,11 +90,11 @@
     }
 
     .oni-frame-content > .panel > .panel-heading .panel-toolbar li.resize-small,
-    .oni-maximized .oni-frame-content > .panel > .panel-heading .panel-toolbar li.fullscreen {
+    .oni-frame.oni-maximized .oni-frame-content > .panel > .panel-heading .panel-toolbar li.fullscreen {
        display: none;
     }
 
-    .oni-maximized .oni-frame-content > .panel > .panel-heading .panel-toolbar li.resize-small {
+    .row.oni-maximized .oni-frame-content > .panel > .panel-heading .panel-toolbar li.resize-small {
        display: inline-block;
     }
 }
@@ -113,6 +113,10 @@
         z-index: 2;
     }
 
+    .oni-frame-content > .panel.no-heading > .panel-body {      
+        padding-top: 0px;      
+    }
+    
     .oni-frame-content > .panel > .panel-body {
         height: 100%;
         padding: 35px 0 0 0;

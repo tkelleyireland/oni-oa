@@ -10,7 +10,10 @@ var NetflowConstants = {
   API_VISUAL_DETAILS: '../../data/flow/${date}/chord-${ip}.tsv',
   API_COMMENTS: '../../data/flow/${date}/threats',
   API_INCIDENT_PROGRESSION: '../../data/flow/${date}/threat-dendro-${id}',
-  API_INGEST_SUMMARY: '../../data/flow/ingest_summary/is_${year}${month}.csv'
+  API_INGEST_SUMMARY: '../../data/flow/ingest_summary/is_${year}${month}.csv',
+  API_IMPACT_ANALYSIS: '../../data/flow/${date}/stats-${id}.json',
+  API_GLOBE_VIEW: '../../data/flow/${date}/globe-${id}.json',
+  API_TIMELINE: '../../data/flow/${date}/sbdet-${id}.tsv', 
 };
 
 module.exports = NetflowConstants;

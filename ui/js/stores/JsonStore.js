@@ -4,96 +4,96 @@ var assign = require('object-assign');
 var CHANGE_DATA_EVENT = 'change_data';
 
 var JsonStore = function (endpoint) {
-  this.setEndpoint(endpoint);
-  this._filters = {};
-  this._data = {loading: false, headers: [], data: [], error: undefined};
-  this._parser = d3.json;
+    this.setEndpoint(endpoint);
+    this._filters = {};
+    this._data = {loading: false, headers: [], data: [], error: undefined};
 };
 
 assign(JsonStore.prototype, EventEmitter.prototype, {
-  defaultErrorMessage: 'Oops, something went wrong!!',
-  errorMessages: {},
-  headers: {},
-  setRestFilter: function (name, value)
-  {
-    this._filters[name] = value;
-  },
-  getRestFilter: function (name)
-  {
-    return this._filters[name];
-  },
-  removeRestFilter: function (name)
-  {
-    delete this._filters[name];
-  },
-  setEndpoint: function (endpoint) {
-    this.endpoint = endpoint;
-  },
-  resetData: function ()
-  {
-    this._data = {loading: false, headers: [], data: [], error: undefined};
-
-    this.emitChangeData();
-  },
-  setData: function (data)
-  {
-    this._data = data;
-
-    this.emitChangeData();
-  },
-  getData: function ()
-  {
-    return this._data;
-  },
-  emitChangeData: function ()
-  {
-    this.emit(CHANGE_DATA_EVENT);
-  },
-  addChangeDataListener: function (callback) {
-    this.on(CHANGE_DATA_EVENT, callback);
-  },
-  removeChangeDataListener: function (callback) {
-    this.removeListener(CHANGE_DATA_EVENT, callback);
-  },
-  reload: function ()
-  {
-    var url, name;
-
-    this.setData({loading: true, headers: [], data: [], error: undefined});
-
-    url = this.endpoint;
-
-    for (name in this._filters)
+    defaultErrorMessage: 'Oops, something went wrong!!',
+    errorMessages: {},
+    headers: {},
+    setRestFilter: function (name, value)
     {
-      url = url.replace('${'+name+'}', this._filters[name]);
-    }
-    url = url.replace(/:/g, '_');
+    this._filters[name] = value;
+    },
+    getRestFilter: function (name)
+    {
+        return this._filters[name];
+    },
+    removeRestFilter: function (name)
+    {
+        delete this._filters[name];
+    },
+        setEndpoint: function (endpoint) {
+            this.endpoint = endpoint;
+    },
+    resetData: function ()
+    {
+        this._data = {loading: false, headers: [], data: [], error: undefined};
 
-    $.ajax(url, {
-      method: 'GET',
-      context: this,
-      contentType: 'application/json',
-      success: function (response) {
-        var csv, headers, tmp; 
+        this.emitChangeData();
+    },
+    setData: function (data)
+    {
+        this._data = data;
+        this.emitChangeData();
+    },
+    getData: function ()
+    {
+        return this._data;
+    },
+    emitChangeData: function ()
+    {
+        this.emit(CHANGE_DATA_EVENT);
+    },
+    addChangeDataListener: function (callback) {
+        this.on(CHANGE_DATA_EVENT, callback);
+    },
+    removeChangeDataListener: function (callback) {
+        this.removeListener(CHANGE_DATA_EVENT, callback);
+    },
+    reload: function ()
+    {
+        var url, name;
+        this.setData({loading: true, headers: [], data: [], error: undefined});
 
-        csv = response.children;    
-        response = {};
-        headers = ['name','children'] 
+        url = this.endpoint;
 
-        this.setData({
-          loading: false,
-          headers: headers,
-          data: csv,
-          error: undefined
+        for (name in this._filters)
+        {
+            url = url.replace('${'+name+'}', this._filters[name]);
+        }
+        url = url.replace(/:/g, '_');
+
+        $.ajax(url, {
+            method: 'GET',
+            context: this,
+            contentType: 'application/json',
+            success: function (response) {
+                var json, headers; 
+
+                if(response.hasOwnProperty('children')){
+                    json = response.children;    
+                } else {
+                    json = response;
+                }
+                response = {};
+                headers = ['name','children'] 
+
+                this.setData({
+                  loading: false,
+                  headers: headers,
+                  data: json,
+                  error: undefined
+                });
+            },
+            error: function (response)
+            {
+                this.setData({loading: true, headers: [], data: [], error: this.errorMessages[response.status] || this.defaultErrorMessage});
+            }          
         });
-      },
-      error: function (response)
-      {
-        this.setData({loading: true, headers: [], data: [], error: this.errorMessages[response.status] || this.defaultErrorMessage});
-      }
-      
-    });
-  }
+    }
 });
 
 module.exports = JsonStore;

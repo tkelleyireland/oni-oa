@@ -1,12 +1,12 @@
 var React = require('react') ;   
 var TimelineStore = require('../stores/TimelineStore');
-var gFilePath; 
 
 
 function buildGraph (root, ipsrc) {
 
     var chartPlaceholder = $(this.getDOMNode());
     chartPlaceholder.html("");
+    document.getElementById('legend').innerHTML = '';
     var names = [];
     var columns = ["tstart", "tend", "srcip", "dstip", "sport", "dport", "pkts", "bytes"];
     var data = [];
@@ -39,7 +39,6 @@ function buildGraph (root, ipsrc) {
                 event.dates.push(parseddate(d.tstart));
                 event.ports.push(parseInt(d.sport));
             }
-
             return;
         });
 
@@ -81,7 +80,6 @@ function buildGraph (root, ipsrc) {
     });
 
     var width = chartPlaceholder.width()-5; // 5 is the magic number to avoid having horizontal scroll bar
-
  
     var graph = d3.chart.eventDrops()
         .start(new Date(startTime))
@@ -131,32 +129,31 @@ function buildGraph (root, ipsrc) {
 var TimelinePanel = React.createClass({  
     componentDidMount: function ()
     {
-        TimelineStore.addChangeDataListener(this._onChange);
+        TimelineStore.addChangeDataListener(this._onChange); 
     },
     componentWillUnmount: function ()
     {
-        TimelineStore.removeChangeDataListener(this._onChange);
+        TimelineStore.removeChangeDataListener(this._onChange); 
     },
     _onChange: function ()
     {
-        var state, filterName, root, cur_date;
-        
+        var state, filterName, root;
         state = TimelineStore.getData();
-
+        document.getElementById('legend').innerHTML = '';
+        
         root = {
             name: TimelineStore.getFilterValue(),
             date: '',
             children: []
         };
 
-        if (!state.loading)
+        if (!state.loading && !state.error)
         {
             filterName = TimelineStore.getFilterName();
-            cur_date = state.data[0]['tstart'];  
+            root.date = TimelineStore._sdate;
             root.children = state.data;  
         }
 
-        root.date = cur_date;
         state.root = root;
         delete state.data;
 
@@ -166,17 +163,17 @@ var TimelinePanel = React.createClass({
     {
         return {loading: false};
     },
-       render:function()
+    render:function()
     {
-        var content;
+        var content; 
 
         if (this.state.error)
         {
-          content = this.state.error;
+            content = this.state.error;
         }
         else if (this.state.loading)
         {
-          content = (
+            content = (
             <div className="oni_loader">
                 Loading <span className="spinner"></span>
             </div>
@@ -184,17 +181,17 @@ var TimelinePanel = React.createClass({
         }
         else
         {
-          content = '';
+            content = '';
         }
-        return (
-            <div>{content}</div>   
+        return ( 
+                <div>{content}</div>  
         )
     },
     componentDidUpdate: function ()
     {
-        if (!this.state.loading)
+        if (!this.state.loading && !this.state.error)
         {
-          buildGraph.call(this, this.state.root);
+            buildGraph.call(this, this.state.root);
         }
     }
 });

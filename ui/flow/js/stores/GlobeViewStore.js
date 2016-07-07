@@ -29,47 +29,54 @@ var GlobeViewStore = assign(new JsonStore(FlowConstants.API_GLOBE_VIEW), {
     {
         return this.getRestFilter('id');
     },
+    setData: function (data)
+    {
+        data.headers = ['destips', 'type', 'sourceips'] 
+        this._data = data;
+
+        this.emitChangeData();
+    },
     clearFilter: function ()
     {
        this.removeRestFilter('id');
-    },
-    reload: function ()
-    {
-        var url, name;
+    // },
+    // reload: function ()
+    // {
+    //     var url, name;
 
-        this.setData({loading: true, headers: [], data: [], error: undefined});
+    //     this.setData({loading: true, headers: [], data: [], error: undefined});
 
-        url = this.endpoint;
+    //     url = this.endpoint;
 
-        for (name in this._filters)
-        {
-          url = url.replace('${'+name+'}', this._filters[name]);
-        }
-        url = url.replace(/:/g, '_');
+    //     for (name in this._filters)
+    //     {
+    //         url = url.replace('${'+name+'}', this._filters[name]);
+    //     }
+    //     url = url.replace(/:/g, '_');
 
-        $.ajax(url, {
-          method: 'GET',
-          context: this,
-          contentType: 'application/json',
-          success: function (response) {
-            var csv, headers, tmp; 
+    //     $.ajax(url, {
+    //       method: 'GET',
+    //       context: this,
+    //       contentType: 'application/json',
+    //       success: function (response) {
+    //         var json, headers, tmp; 
             
-            csv = response;
-            response = {};
-            headers = ['destips', 'type', 'sourceips'] 
+    //         json = response;
+    //         response = {};
+    //         headers = ['destips', 'type', 'sourceips'] 
 
-            this.setData({
-              loading: false,
-              headers: headers,
-              data: csv,
-              error: undefined
-            });
-          },
-          error: function (response)
-          {
-            this.setData({loading: true, headers: [], data: [], error: this.errorMessages[response.status] || this.defaultErrorMessage});
-          }
-        });
+    //         this.setData({
+    //           loading: false,
+    //           headers: headers,
+    //           data: json,
+    //           error: undefined
+    //         });
+    //       },
+    //       error: function (response)
+    //       {
+    //         this.setData({loading: true, headers: [], data: [], error: this.errorMessages[response.status] || this.defaultErrorMessage});
+    //       }
+    //     });
     }
 });
 

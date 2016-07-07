@@ -158,31 +158,6 @@
     list-style: none;
     text-align: left;
  } 
- /**       DENDROGRAM        **/
-.sb_dendrogram .dendrogram {
-  overflow-y: auto;
-  overflow-x: auto;
-  height: 100%;
-}
-
-.sb_dendrogram .dendrogram .node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
-
-.sb_dendrogram .dendrogram .node {
-  font: 10px sans-serif;
-  stroke: hsl(0, 0%, 0%);
-  stroke-width: 0;
-}
-
-.sb_dendrogram .dendrogram .link {
-  fill: none;
-  stroke: hsl(0, 0%, 80%);
-  stroke-width: 1.5px;
-}
-
 
 /**    IMPACT ANALYSIS     **/
 .sb_impact rect.background {

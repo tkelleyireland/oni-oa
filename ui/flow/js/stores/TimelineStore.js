@@ -7,6 +7,7 @@ var RestStore = require('../../../js/stores/RestStore');
 
 var fields = ['title', 'summary'];
 var filterName;
+var _sdate = '';
 
 var TimelineStore = assign(new RestStore(FlowConstants.API_TIMELINE), {
     _parser: d3.tsv, 
@@ -16,6 +17,7 @@ var TimelineStore = assign(new RestStore(FlowConstants.API_TIMELINE), {
     setDate: function (date)
     {
         this.setEndpoint(FlowConstants.API_TIMELINE.replace('${date}', date.replace(/-/g, '')));
+        this._sdate = date;
     },
     setFilter: function (name, value)
     {

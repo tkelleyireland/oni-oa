@@ -62,7 +62,7 @@ React.render(
       <Panel title={OniConstants.COMMENTS_PANEL} expandable container className="col-md-6" >
           <ExecutiveThreatBriefingPanel />
       </Panel>
-      <Panel title={OniConstants.INCIDENT_PANEL} expandable container className="col-md-6 sb_dendrogram">
+      <Panel title={OniConstants.INCIDENT_PANEL} expandable container className="col-md-6">
           <IncidentProgressionPanel />
       </Panel>
     </PanelRow>
@@ -75,7 +75,7 @@ React.render(
       </Panel>
       <Panel title={OniConstants.TIMELINE_PANEL} expandable className="col-md-4 sb_timeline" >
           <TimelinePanel />  
-          <div id="legend"></div>
+          <div id='legend'></div>
       </Panel>    
     </PanelRow>
   </div>,

@@ -1,6 +1,7 @@
 var React = require('react');   
 var queue = require('d3-queue');
 var GlobeViewStore = require('../stores/GlobeViewStore');
+var loader = require
 
 var m0, o0, fill, proj, sky, path, swoosh, links, arcline, svg, width, height;
 var dataset, container;
@@ -48,24 +49,24 @@ function buildGraph(root, ipsrc) {
     arcLines = [];
 
     svg = d3.select(container[0]).append("svg")
-                .attr("width", width)
-                .attr("height", height)
-                .on("mousedown", mousedown);
+        .attr("width", width)
+        .attr("height", height)
+        .on("mousedown", mousedown);
                 
     queue()
-      .defer(d3.json, "../flow/world-110m.json")
-      .defer(getRawData)
-      .await(ready);
+        .defer(d3.json, "../flow/world-110m.json")
+        .defer(getRawData)
+        .await(ready);
 
 }
 
 function getRawData(callback){ 
-  callback(null,dataset.children);
+    callback(null,dataset.children);
 }
 
 var d3_selection_onFilters = d3.map({
-  mouseenter: "mouseover",
-  mouseleave: "mouseout"
+    mouseenter: "mouseover",
+    mouseleave: "mouseout"
 });
 
 function ready(error, world, places) {  
@@ -81,77 +82,78 @@ function ready(error, world, places) {
     ocean_fill.append("stop").attr("offset", "100%").attr("stop-color", "#ababab");
 
     var globe_highlight = svg.append("defs").append("radialGradient")
-          .attr("id", "globe_highlight")
-          .attr("cx", "75%")
-          .attr("cy", "25%");
+        .attr("id", "globe_highlight")
+        .attr("cx", "75%")
+        .attr("cy", "25%");
     globe_highlight.append("stop")
-      .attr("offset", "5%").attr("stop-color", "#ffd")
-      .attr("stop-opacity", "0.6");
+        .attr("offset", "5%").attr("stop-color", "#ffd")
+        .attr("stop-opacity", "0.6");
     globe_highlight.append("stop")
-      .attr("offset", "100%").attr("stop-color", "#ba9")
-      .attr("stop-opacity", "0.2");
+        .attr("offset", "100%").attr("stop-color", "#ba9")
+        .attr("stop-opacity", "0.2");
 
     var globe_shading = svg.append("defs").append("radialGradient")
           .attr("id", "globe_shading")
           .attr("cx", "55%")
           .attr("cy", "45%");
     globe_shading.append("stop")
-      .attr("offset", "30%").attr("stop-color", "#fff")
-      .attr("stop-opacity", "0")
+        .attr("offset", "30%").attr("stop-color", "#fff")
+        .attr("stop-opacity", "0")
     globe_shading.append("stop")
-      .attr("offset", "100%").attr("stop-color", "#505962")
-      .attr("stop-opacity", "0.3")
+        .attr("offset", "100%").attr("stop-color", "#505962")
+        .attr("stop-opacity", "0.3")
 
-    var drop_shadow = svg.append("defs").append("radialGradient")
-          .attr("id", "drop_shadow")
-          .attr("cx", "50%")
-          .attr("cy", "50%");
+    var drop_shadow = svg.append("defs")
+        .append("radialGradient")
+        .attr("id", "drop_shadow")
+        .attr("cx", "50%")
+        .attr("cy", "50%");
     drop_shadow.append("stop")
-      .attr("offset", "20%").attr("stop-color", "#000")
-      .attr("stop-opacity", ".5")
+        .attr("offset", "20%").attr("stop-color", "#000")
+        .attr("stop-opacity", ".5")
     drop_shadow.append("stop")
-      .attr("offset", "100%").attr("stop-color", "#000")
-      .attr("stop-opacity", "0")
+        .attr("offset", "100%").attr("stop-color", "#000")
+        .attr("stop-opacity", "0")
 
     svg.append("ellipse")
-      .attr("cx", width * 0.8).attr("cy", height * 0.87) // Locate the Ellipse at 80% of the width and 87% of the height
-      .attr("rx", proj.scale() * .90)
-      .attr("ry", proj.scale() * .25)
-      .attr("class", "noclicks")
-      .style("fill", "url(#drop_shadow)");
+        .attr("cx", width * 0.8).attr("cy", height * 0.87) // Locate the Ellipse at 80% of the width and 87% of the height
+        .attr("rx", proj.scale() * .90)
+        .attr("ry", proj.scale() * .25)
+        .attr("class", "noclicks")
+        .style("fill", "url(#drop_shadow)");
 
     svg.append("circle")
-      .attr("cx", width / 2).attr("cy", height / 2)
-      .attr("r", proj.scale())
-      .attr("class", "noclicks")
-      .style("fill", "url(#ocean_fill)");
+        .attr("cx", width / 2).attr("cy", height / 2)
+        .attr("r", proj.scale())
+        .attr("class", "noclicks")
+        .style("fill", "url(#ocean_fill)");
 
     svg.append("path")
-      .datum(topojson.object(world, world.objects.land))
-      .attr("class", "land noclicks")
-      .attr("d", path);
+        .datum(topojson.object(world, world.objects.land))
+        .attr("class", "land noclicks")
+        .attr("d", path);
 
     svg.append("circle")
-      .attr("cx", width / 2).attr("cy", height / 2)
-      .attr("r", proj.scale())
-      .attr("class", "noclicks")
-      .style("fill", "url(#globe_highlight)");
+        .attr("cx", width / 2).attr("cy", height / 2)
+        .attr("r", proj.scale())
+        .attr("class", "noclicks")
+        .style("fill", "url(#globe_highlight)");
 
     svg.append("circle")
-      .attr("cx", width / 2).attr("cy", height / 2)
-      .attr("r", proj.scale())
-      .attr("class", "noclicks")
-      .style("fill", "url(#globe_shading)");
+        .attr("cx", width / 2).attr("cy", height / 2)
+        .attr("r", proj.scale())
+        .attr("class", "noclicks")
+        .style("fill", "url(#globe_shading)");
 
     svg.append("g").attr("class", "points")
         .selectAll("text").data(places.sourceips)
-      .enter().append("path")
+        .enter().append("path")
         .attr("class", "point")
         .attr("d", path);
 
     svg.append("g").attr("class", "points")
         .selectAll("text").data(places.destips)
-      .enter().append("path")
+        .enter().append("path")
         .attr("class", "point")
         .attr("d", path);
   
@@ -174,21 +176,21 @@ function ready(error, world, places) {
     })
 
     svg.append("g").attr("class", "arcs")
-      .selectAll("path").data(arcLines)
-      .enter().append("path")
+        .selectAll("path").data(arcLines)
+        .enter().append("path")
         .attr("class", "arc")
         .attr("d", path)
 
     svg.append("g").attr("class", "flyers")
-      .selectAll("path").data(links)
-      .enter().append("path")
-      .attr("class", "flyer")
-      .style("stroke", function (d) {
-          return fill(d.ltype);
-      })
-      .attr("d", function (d) {
-          return swoosh(flying_arc(d));
-      })
+        .selectAll("path").data(links)
+        .enter().append("path")
+        .attr("class", "flyer")
+        .style("stroke", function (d) {
+            return fill(d.ltype);
+        })
+        .attr("d", function (d) {
+            return swoosh(flying_arc(d));
+        })
 
     refresh();
 }
@@ -209,17 +211,17 @@ function refresh() {
     svg.selectAll(".point").attr("d", path);
 
     svg.selectAll(".arc").attr("d", path)
-      .attr("opacity", function (d) {
-          return fade_at_edge(d)
-      })
+        .attr("opacity", function (d) {
+            return fade_at_edge(d)
+        })
 
     svg.selectAll(".flyer")
-      .attr("d", function (d) {
-          return swoosh(flying_arc(d));
-      })
-      .attr("opacity", function (d) {
-          return fade_at_edge(d);
-      })
+        .attr("d", function (d) {
+            return swoosh(flying_arc(d));
+        })
+        .attr("opacity", function (d) {
+            return fade_at_edge(d);
+        })
 }
 
 function fade_at_edge(d) {
@@ -279,11 +281,11 @@ function mouseup() {
 var GlobeViewPanel = React.createClass({  
     componentDidMount: function ()
     {
-        GlobeViewStore.addChangeDataListener(this._onChange);
+        GlobeViewStore.addChangeDataListener(this._onChange); 
     },
     componentWillUnmount: function ()
     {
-        GlobeViewStore.removeChangeDataListener(this._onChange);
+        GlobeViewStore.removeChangeDataListener(this._onChange); 
     },
     _onChange: function ()
     {
@@ -317,27 +319,27 @@ var GlobeViewPanel = React.createClass({
 
         if (this.state.error)
         {
-          content = this.state.error;
+            content = this.state.error;
         }
         else if (this.state.loading)
         {
           content = (
-            <div className="oni_loader">
-                Loading <span className="spinner"></span>
-            </div>
+              <div className="oni_loader">
+                  Loading <span className="spinner"></span>
+              </div>
           );
         }
         else
         {
-          content = '';
+            content = '';
         }
         return (
-          <div>{content}</div>
+            <div>{content}</div>
         )
     },
     componentDidUpdate: function ()
     {
-        if (!this.state.loading)
+        if (!this.state.loading && !this.state.error)
         {
 
           buildGraph.call(this, this.state.root);

@@ -1,6 +1,4 @@
 var React = require('react');
-
-var FlowActions = require('../../../js/actions/OniActions');
 var StoryBoardActions = require('../../../js/actions/StoryBoardActions');
 var CommentsStore = require('../stores/CommentsStore');
 

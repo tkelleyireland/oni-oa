@@ -123,7 +123,7 @@ function up(d) {
     // Exiting nodes will obscure the parent bar, so hide it.
     enter.select("rect")
         .style("fill", function (d) { return z(!!d.children); })
-      .filter(function (p) { return p === d; })
+        .filter(function (p) { return p === d; })
         .style("fill-opacity", 1e-6);
 
     // Update the x-scale domain.
@@ -206,11 +206,11 @@ function stack(i) {
 var ImpactAnalysisPanel = React.createClass({  
     componentDidMount: function ()
     {
-        ImpactAnalysisStore.addChangeDataListener(this._onChange);
+        ImpactAnalysisStore.addChangeDataListener(this._onChange); 
     },
     componentWillUnmount: function ()
     {
-        ImpactAnalysisStore.removeChangeDataListener(this._onChange);
+        ImpactAnalysisStore.removeChangeDataListener(this._onChange); 
     },
     _onChange: function ()
     {
@@ -273,7 +273,7 @@ var ImpactAnalysisPanel = React.createClass({
     },
     componentDidUpdate: function ()
     {
-        if (!this.state.loading)
+        if (!this.state.loading && !this.state.error)
         {
           buildGraph.call(this, this.state.root);
         }

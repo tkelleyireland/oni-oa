@@ -3,11 +3,6 @@ var React = require('react');
 var DendrogramMixin = require('../../../js/components/DendrogramMixin.react');
 var IncidentProgressionStore = require('../stores/IncidentProgressionStore');
  
-var fieldMapper = {
-    ip_dst: 'dns_qry_name',
-    dns_qry_name: 'ip_dst'
-};
-
 var IncidentProgressionPanel = React.createClass({ 
     mixins: [DendrogramMixin],
     componentDidMount: function ()

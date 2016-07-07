@@ -175,8 +175,8 @@
     stroke-width: .5px;
 }
 
-.sb_impact svg{
-    font-size: small;
+.sb_impact svg{    
+    font: 10px sans-serif;
 }
 
 /**         MAP VIEW       **/
@@ -234,8 +234,8 @@
 }
 
 /**       TIMELINE         **/
-.sb_timeline svg{
-    font-size: small;
+.sb_timeline svg, .sb_timeline #legend{
+    font: 10px sans-serif;
 }
  
 .sb_timeline .zoom {
@@ -265,3 +265,4 @@
 .sb_timeline .graph-body .line circle {
     opacity: 0.4;
 }
+

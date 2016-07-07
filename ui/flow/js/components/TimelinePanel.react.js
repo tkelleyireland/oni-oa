@@ -12,8 +12,7 @@ function buildGraph (root, ipsrc) {
     var data = [];
     var dataDate = root.date.split(' ')[0];
     var endTime = Date.parse(dataDate + " 23:59");
-
-    //var oneMonth = 24 * 60 * 60 * 1000;
+ 
     var startTime = Date.parse(dataDate + " 00:00");
     csvdata = root.children;
 

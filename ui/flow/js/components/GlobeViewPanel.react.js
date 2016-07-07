@@ -1,9 +1,8 @@
 var React = require('react');   
 var queue = require('d3-queue');
 var GlobeViewStore = require('../stores/GlobeViewStore');
-var loader = require
 
-var m0, o0, fill, proj, sky, path, swoosh, links, arcline, svg, width, height;
+var m0, o0, fill, proj, sky, path, swoosh, links, svg, width, height;
 var dataset, container;
  
 function buildGraph(root, ipsrc) {
@@ -63,11 +62,6 @@ function buildGraph(root, ipsrc) {
 function getRawData(callback){ 
     callback(null,dataset.children);
 }
-
-var d3_selection_onFilters = d3.map({
-    mouseenter: "mouseover",
-    mouseleave: "mouseout"
-});
 
 function ready(error, world, places) {  
     if (error != null && error != undefined) {

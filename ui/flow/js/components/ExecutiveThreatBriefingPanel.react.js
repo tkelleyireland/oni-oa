@@ -38,8 +38,6 @@ var ExecutiveThreatBriefingPanel = React.createClass({
 
             this.state.data.forEach(function (comment, i)
             {
-                 
-
                 titles.push(
                     <button key={'comment_' + i + '_title'} type="button" className="btn btn-default btn-sm" onClick={function (e) { e.preventDefault(); this._onSelect(comment, i); }.bind(this)}>
                         {comment.title}

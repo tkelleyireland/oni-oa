@@ -101,26 +101,7 @@ function buildGraph (root, ipsrc) {
 
     var element = d3.select(chartPlaceholder[0]).append('div').datum(data);
     
-    graph(element);
-
-    // var updateDelimiter = function (value) {
-    //     graph.hasDelimiter(!graph.hasDelimiter())(element);
-    // }
-
-    // var addLine = function () {
-    //     var data = element.datum();
-    //     var i = data.length;
-    //     data.push(createEvent(names[i]));
-    //     elements = element.datum(data);
-    //     graph(element);
-    // }
-
-    // var removeLine = function () {
-    //     var data = element.datum();
-    //     data.pop();
-    //     element = element.datum(data);
-    //     graph(element);
-    // }
+    graph(element); 
 }
  
 

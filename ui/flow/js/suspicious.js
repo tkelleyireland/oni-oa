@@ -65,7 +65,7 @@ React.render(
       </Panel>
     </PanelRow>
     <PanelRow>
-      <Panel title={OniConstants.NOTEBOOK_PANEL} container expandable>
+      <Panel title={OniConstants.NOTEBOOK_PANEL} container expandable toggleable>
         <IPythonNotebookPanel date={OniUtils.getCurrentDate()} ipynb="flow/${date}/Edge_Investigation.ipynb" />
       </Panel>
       <Panel title={OniConstants.DETAILS_PANEL} container expandable>

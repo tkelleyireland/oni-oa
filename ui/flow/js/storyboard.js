@@ -75,7 +75,7 @@ React.render(
       </Panel>
       <Panel title={OniConstants.TIMELINE_PANEL} expandable className="col-md-4 sb_timeline" >
           <TimelinePanel />  
-          <div id='legend'></div>
+
       </Panel>    
     </PanelRow>
   </div>,

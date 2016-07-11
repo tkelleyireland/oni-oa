@@ -2,13 +2,12 @@ var React = require('react') ;
 var TimelineStore = require('../stores/TimelineStore');
 
 
-function buildGraph (root, ipsrc) {
+function buildGraph(root, ipsrc) {
 
-    var chartPlaceholder = $(this.getDOMNode());
+    var chartPlaceholder = $(this.getDOMNode()).find("#graph");
     chartPlaceholder.html("");
-    document.getElementById('legend').innerHTML = '';
+    $(this.getDOMNode()).find("#legend").html("");
     var names = [];
-    // var columns = ["tstart", "tend", "srcip", "dstip", "sport", "dport", "pkts", "bytes"];
     var data = [];
     var dataDate = root.date.split(' ')[0];
     var endTime = Date.parse(dataDate + " 23:59");
@@ -96,8 +95,11 @@ function buildGraph (root, ipsrc) {
             var series = el.parentNode.firstChild.innerHTML.replace(/\(\d+\)/g, "");
             var port = el.parentNode.__data__.ports[0];
             var timestamp = d3.select(el).data()[0]
-            document.getElementById('legend').innerHTML = 'Hovering [' + timestamp + '] <br /> in series "' + series + '" at port ' + port;
-        });
+            // document.getElementById('legend').innerHTML = 'Hovering [' + timestamp + '] <br /> in series "' + series + '" at port ' + port;
+            $(this.getDOMNode()).find("#legend").html('Hovering [' + timestamp + '] <br /> in series "' + series + '" at port ' + port);
+        }.bind(this)
+
+        );
 
     var element = d3.select(chartPlaceholder[0]).append('div').datum(data);
     
@@ -118,8 +120,7 @@ var TimelinePanel = React.createClass({
     _onChange: function ()
     {
         var state, filterName, root;
-        state = TimelineStore.getData();
-        document.getElementById('legend').innerHTML = '';
+        state = TimelineStore.getData(); 
         
         root = {
             name: TimelineStore.getFilterValue(),
@@ -161,7 +162,7 @@ var TimelinePanel = React.createClass({
         }
         else
         {
-            content = '';
+            content = [<div id="graph" key="timeline_graph"></div>, <div id="legend" key="timeline_legend"></div>];
         }
         return ( 
                 <div>{content}</div>  

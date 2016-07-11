@@ -1,6 +1,6 @@
 var assign = require('object-assign');
 
-var FlowDispatcher = require('../../../js/dispatchers/OniDispatcher');
+var OniDispatcher = require('../../../js/dispatchers/OniDispatcher');
 var FlowConstants = require('../constants/NetflowConstants');
 var OniConstants = require('../../../js/constants/OniConstants');
 var RestStore = require('../../../js/stores/RestStore');
@@ -40,7 +40,7 @@ var TimelineStore = assign(new RestStore(FlowConstants.API_TIMELINE), {
 });
 
 
-FlowDispatcher.register(function (action) {
+OniDispatcher.register(function (action) {
     switch (action.actionType) {
         case OniConstants.UPDATE_DATE:
             TimelineStore.setDate(action.date);

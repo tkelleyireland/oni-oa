@@ -6,13 +6,12 @@ var CHANGE_DATA_EVENT = 'change_data';
 var JsonStore = function (endpoint) {
     this.setEndpoint(endpoint);
     this._filters = {};
-    this._data = {loading: false, headers: [], data: [], error: undefined};
+    this._data = {loading: false, data: [], error: undefined};
 };
 
 assign(JsonStore.prototype, EventEmitter.prototype, {
     defaultErrorMessage: 'Oops, something went wrong!!',
     errorMessages: {},
-    headers: {},
     setRestFilter: function (name, value)
     {
     this._filters[name] = value;
@@ -30,7 +29,7 @@ assign(JsonStore.prototype, EventEmitter.prototype, {
     },
     resetData: function ()
     {
-        this._data = {loading: false, headers: [], data: [], error: undefined};
+        this._data = {loading: false, data: [], error: undefined};
 
         this.emitChangeData();
     },
@@ -56,7 +55,7 @@ assign(JsonStore.prototype, EventEmitter.prototype, {
     reload: function ()
     {
         var url, name;
-        this.setData({loading: true, headers: [], data: [], error: undefined});
+        this.setData({loading: true, data: [], error: undefined});
 
         url = this.endpoint;
 
@@ -71,26 +70,16 @@ assign(JsonStore.prototype, EventEmitter.prototype, {
             context: this,
             contentType: 'application/json',
             success: function (response) {
-                var json, headers; 
-
-                if(response.hasOwnProperty('children')){
-                    json = response.children;    
-                } else {
-                    json = response;
-                }
-                response = {};
-                headers = ['name','children'] 
 
                 this.setData({
                   loading: false,
-                  headers: headers,
-                  data: json,
+                  data: response,
                   error: undefined
                 });
             },
             error: function (response)
             {
-                this.setData({loading: true, headers: [], data: [], error: this.errorMessages[response.status] || this.defaultErrorMessage});
+                this.setData({loading: true, data: [], error: this.errorMessages[response.status] || this.defaultErrorMessage});
             }          
         });
     }

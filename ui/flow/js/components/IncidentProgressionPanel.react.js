@@ -30,7 +30,7 @@ var IncidentProgressionPanel = React.createClass({
         {
             filterName = IncidentProgressionStore.getFilterName();
 
-            state.data.forEach(function (item)
+            state.data.children.forEach(function (item)
             {
                 root.children.push({
                     name: item['name'],

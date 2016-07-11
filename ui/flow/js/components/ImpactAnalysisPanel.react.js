@@ -228,7 +228,7 @@ var ImpactAnalysisPanel = React.createClass({
         {
             filterName = ImpactAnalysisStore.getFilterName();
 
-            state.data.forEach(function (item)
+            state.data.children.forEach(function (item)
             {
                 root.children.push({
                     name: item['name'],

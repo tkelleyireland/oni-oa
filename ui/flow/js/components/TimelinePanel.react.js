@@ -8,7 +8,7 @@ function buildGraph (root, ipsrc) {
     chartPlaceholder.html("");
     document.getElementById('legend').innerHTML = '';
     var names = [];
-    var columns = ["tstart", "tend", "srcip", "dstip", "sport", "dport", "pkts", "bytes"];
+    // var columns = ["tstart", "tend", "srcip", "dstip", "sport", "dport", "pkts", "bytes"];
     var data = [];
     var dataDate = root.date.split(' ')[0];
     var endTime = Date.parse(dataDate + " 23:59");
@@ -103,24 +103,24 @@ function buildGraph (root, ipsrc) {
     
     graph(element);
 
-    var updateDelimiter = function (value) {
-        graph.hasDelimiter(!graph.hasDelimiter())(element);
-    }
+    // var updateDelimiter = function (value) {
+    //     graph.hasDelimiter(!graph.hasDelimiter())(element);
+    // }
 
-    var addLine = function () {
-        var data = element.datum();
-        var i = data.length;
-        data.push(createEvent(names[i]));
-        elements = element.datum(data);
-        graph(element);
-    }
+    // var addLine = function () {
+    //     var data = element.datum();
+    //     var i = data.length;
+    //     data.push(createEvent(names[i]));
+    //     elements = element.datum(data);
+    //     graph(element);
+    // }
 
-    var removeLine = function () {
-        var data = element.datum();
-        data.pop();
-        element = element.datum(data);
-        graph(element);
-    }
+    // var removeLine = function () {
+    //     var data = element.datum();
+    //     data.pop();
+    //     element = element.datum(data);
+    //     graph(element);
+    // }
 }
  
 

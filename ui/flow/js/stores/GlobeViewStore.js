@@ -1,6 +1,6 @@
 var assign = require('object-assign');
 
-var FlowDispatcher = require('../../../js/dispatchers/OniDispatcher');
+var OniDispatcher = require('../../../js/dispatchers/OniDispatcher');
 var FlowConstants = require('../constants/NetflowConstants');
 var OniConstants = require('../../../js/constants/OniConstants');
 var JsonStore = require('../../../js/stores/JsonStore');
@@ -31,7 +31,6 @@ var GlobeViewStore = assign(new JsonStore(FlowConstants.API_GLOBE_VIEW), {
     },
     setData: function (data)
     {
-        data.headers = ['destips', 'type', 'sourceips'] 
         this._data = data;
 
         this.emitChangeData();
@@ -42,7 +41,7 @@ var GlobeViewStore = assign(new JsonStore(FlowConstants.API_GLOBE_VIEW), {
     }
 });
 
-FlowDispatcher.register(function (action) {
+OniDispatcher.register(function (action) {
     switch (action.actionType) {
         case OniConstants.UPDATE_DATE:
             GlobeViewStore.setDate(action.date);

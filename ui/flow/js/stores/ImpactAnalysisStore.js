@@ -1,6 +1,6 @@
 var assign = require('object-assign');
 
-var FlowDispatcher = require('../../../js/dispatchers/OniDispatcher');
+var OniDispatcher = require('../../../js/dispatchers/OniDispatcher');
 var FlowConstants = require('../constants/NetflowConstants');
 var OniConstants = require('../../../js/constants/OniConstants');
 var RestStore = require('../../../js/stores/JsonStore');
@@ -35,7 +35,7 @@ var ImpactAnalysisStore = assign(new RestStore(FlowConstants.API_IMPACT_ANALYSIS
     }
 });
 
-FlowDispatcher.register(function (action) {
+OniDispatcher.register(function (action) {
     switch (action.actionType) {
         case OniConstants.UPDATE_DATE:
             ImpactAnalysisStore.setDate(action.date);
